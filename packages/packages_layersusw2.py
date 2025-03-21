@@ -96,13 +96,6 @@ class PackagesLayersUSW2(Stack):
             tier = _ssm.ParameterTier.STANDARD
         )
 
-    ### beautifulsoup4 LAYER ###
-    ### censys LAYER ###
-    ### dnspython LAYER ###
-    ### geoip2 LAYER ###
-    ### maxminddb LAYER ###
-    ### netaddr LAYER ###
-
     ### pip LAYER ###
 
         pipstatus = _ssm.StringParameter.from_string_parameter_attributes(
@@ -138,6 +131,3 @@ class PackagesLayersUSW2(Stack):
             string_value = pkgpip.layer_version_arn,
             tier = _ssm.ParameterTier.STANDARD
         )
-
-    ### requests LAYER ###
-    ### smartopen LAYER ###
