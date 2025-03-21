@@ -33,6 +33,55 @@ class PackagesLayersUSW2(Stack):
 
     ### PARAMETERS ###
 
+        updatedbeautifulsoup4 = _ssm.StringParameter(
+            self, 'updatedbeautifulsoup4',
+            parameter_name = '/updated/beautifulsoup4',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
+
+        updatedcensys = _ssm.StringParameter(
+            self, 'updatedcensys',
+            parameter_name = '/updated/censys',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
+
+        updateddnspython = _ssm.StringParameter(
+            self, 'updateddnspython',
+            parameter_name = '/updated/dnspython',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
+
+        updatedgeoip2 = _ssm.StringParameter(
+            self, 'updatedgeoip2',
+            parameter_name = '/updated/geoip2',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
+
+        updatedmaxminddb = _ssm.StringParameter(
+            self, 'updatedmaxminddb',
+            parameter_name = '/updated/maxminddb',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
+
+        updatednetaddr = _ssm.StringParameter(
+            self, 'updatednetaddr',
+            parameter_name = '/updated/netaddr',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
+
+        updatedpip = _ssm.StringParameter(
+            self, 'updatedpip',
+            parameter_name = '/updated/pip',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
+
         updatedrequests = _ssm.StringParameter(
             self, 'updatedrequests',
             parameter_name = '/updated/requests',
@@ -40,11 +89,31 @@ class PackagesLayersUSW2(Stack):
             tier = _ssm.ParameterTier.STANDARD
         )
 
-    ### LAYERS ###
+        updatedsmartopen = _ssm.StringParameter(
+            self, 'updatedsmartopen',
+            parameter_name = '/updated/smartopen',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
+
+    ### beautifulsoup4 LAYER ###
+    ### censys LAYER ###
+    ### dnspython LAYER ###
+    ### geoip2 LAYER ###
+    ### maxminddb LAYER ###
+    ### netaddr LAYER ###
+
+    ### pip LAYER ###
+
+        pipstatus = _ssm.StringParameter.from_string_parameter_attributes(
+            self, 'pipstatus',
+            parameter_name = '/updated/pip'
+        )
 
         pkgpip = _lambda.LayerVersion(
             self, 'pkgpip',
             layer_version_name = 'pkgpip',
+            description = pipstatus.string_value,
             code = _lambda.Code.from_bucket(
                 bucket = bucket,
                 key = 'pip.zip'
@@ -69,3 +138,6 @@ class PackagesLayersUSW2(Stack):
             string_value = pkgpip.layer_version_arn,
             tier = _ssm.ParameterTier.STANDARD
         )
+
+    ### requests LAYER ###
+    ### smartopen LAYER ###

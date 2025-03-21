@@ -120,9 +120,9 @@ class PackagesStack(Stack):
             self, 'event',
             schedule = _events.Schedule.cron(
                 minute = '0',
-                hour = '11',
-                month = '*',
-                week_day = 'SAT',
+                hour = '0',
+                month = '1',
+                week_day = '*',
                 year = '*'
             )
         )
