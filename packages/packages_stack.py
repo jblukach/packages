@@ -45,6 +45,7 @@ class PackagesStack(Stack):
         github.add_to_policy(
             _iam.PolicyStatement(
                 actions = [
+                    'iam:PassRole',
                     'sts:AssumeRole'
                 ],
                 resources = [
