@@ -1,7 +1,6 @@
 from aws_cdk import (
     RemovalPolicy,
     Stack,
-    aws_iam as _iam,
     aws_lambda as _lambda,
     aws_ram as _ram,
     aws_s3 as _s3,
@@ -15,9 +14,32 @@ class PackagesLayersUSE1(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        orgid = _ssm.StringParameter.from_string_parameter_attributes(
-            self, 'orgid',
-            parameter_name = '/org/id'
+    ### ROOT ORGANIZATION ID ###
+
+        organizationid = _ssm.StringParameter(
+            self, 'organizationid',
+            parameter_name = '/root/organization',
+            string_value = 'o-xxxxxxxxxx',
+            tier = _ssm.ParameterTier.ADVANCED
+        )
+
+        organization = _ssm.StringParameter.from_string_parameter_attributes(
+            self, 'organization',
+            parameter_name = '/root/organization'
+        )
+
+    ### ROOT ACCOUNT NUMBER  ###
+
+        accountnumber = _ssm.StringParameter(
+            self, 'accountnumber',
+            parameter_name = '/root/account',
+            string_value = 'xxxxxxxxxxxx',
+            tier = _ssm.ParameterTier.ADVANCED
+        )
+
+        account = _ssm.StringParameter.from_string_parameter_attributes(
+            self, 'account',
+            parameter_name = '/root/account'
         )
 
     ### BUCKET ###
@@ -33,7 +55,7 @@ class PackagesLayersUSE1(Stack):
             versioned = False
         )
 
-    ### PARAMETERS ###
+    ### beautifulsoup4 LAYER ###
 
         updatedbeautifulsoup4 = _ssm.StringParameter(
             self, 'updatedbeautifulsoup4',
@@ -41,64 +63,6 @@ class PackagesLayersUSE1(Stack):
             string_value = 'EMPTY',
             tier = _ssm.ParameterTier.STANDARD
         )
-
-        updatedcensys = _ssm.StringParameter(
-            self, 'updatedcensys',
-            parameter_name = '/updated/censys',
-            string_value = 'EMPTY',
-            tier = _ssm.ParameterTier.STANDARD
-        )
-
-        updateddnspython = _ssm.StringParameter(
-            self, 'updateddnspython',
-            parameter_name = '/updated/dnspython',
-            string_value = 'EMPTY',
-            tier = _ssm.ParameterTier.STANDARD
-        )
-
-        updatedgeoip2 = _ssm.StringParameter(
-            self, 'updatedgeoip2',
-            parameter_name = '/updated/geoip2',
-            string_value = 'EMPTY',
-            tier = _ssm.ParameterTier.STANDARD
-        )
-
-        updatedmaxminddb = _ssm.StringParameter(
-            self, 'updatedmaxminddb',
-            parameter_name = '/updated/maxminddb',
-            string_value = 'EMPTY',
-            tier = _ssm.ParameterTier.STANDARD
-        )
-
-        updatednetaddr = _ssm.StringParameter(
-            self, 'updatednetaddr',
-            parameter_name = '/updated/netaddr',
-            string_value = 'EMPTY',
-            tier = _ssm.ParameterTier.STANDARD
-        )
-
-        updatedpip = _ssm.StringParameter(
-            self, 'updatedpip',
-            parameter_name = '/updated/pip',
-            string_value = 'EMPTY',
-            tier = _ssm.ParameterTier.STANDARD
-        )
-
-        updatedrequests = _ssm.StringParameter(
-            self, 'updatedrequests',
-            parameter_name = '/updated/requests',
-            string_value = 'EMPTY',
-            tier = _ssm.ParameterTier.STANDARD
-        )
-
-        updatedsmartopen = _ssm.StringParameter(
-            self, 'updatedsmartopen',
-            parameter_name = '/updated/smartopen',
-            string_value = 'EMPTY',
-            tier = _ssm.ParameterTier.STANDARD
-        )
-
-    ### beautifulsoup4 LAYER ###
 
         beautifulsoup4status = _ssm.StringParameter.from_string_parameter_attributes(
             self, 'beautifulsoup4status',
@@ -137,10 +101,17 @@ class PackagesLayersUSE1(Stack):
         pkgbeautifulsoup4.add_permission(
             id = 'permissionbeautifulsoup4',
             account_id = '*',
-            organization_id = orgid.string_value
+            organization_id = organization.string_value
         )
 
     ### censys LAYER ###
+
+        updatedcensys = _ssm.StringParameter(
+            self, 'updatedcensys',
+            parameter_name = '/updated/censys',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
 
         censysstatus = _ssm.StringParameter.from_string_parameter_attributes(
             self, 'censysstatus',
@@ -179,10 +150,17 @@ class PackagesLayersUSE1(Stack):
         pkgcensys.add_permission(
             id = 'permissioncensys',
             account_id = '*',
-            organization_id = orgid.string_value
+            organization_id = organization.string_value
         )
 
     ### dnspython LAYER ###
+
+        updateddnspython = _ssm.StringParameter(
+            self, 'updateddnspython',
+            parameter_name = '/updated/dnspython',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
 
         dnspythonstatus = _ssm.StringParameter.from_string_parameter_attributes(
             self, 'dnspythonstatus',
@@ -221,10 +199,17 @@ class PackagesLayersUSE1(Stack):
         pkgdnspython.add_permission(
             id = 'permissiondnspython',
             account_id = '*',
-            organization_id = orgid.string_value
+            organization_id = organization.string_value
         )
 
     ### geoip2 LAYER ###
+
+        updatedgeoip2 = _ssm.StringParameter(
+            self, 'updatedgeoip2',
+            parameter_name = '/updated/geoip2',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
 
         geoip2status = _ssm.StringParameter.from_string_parameter_attributes(
             self, 'geoip2status',
@@ -263,10 +248,17 @@ class PackagesLayersUSE1(Stack):
         pkggeoip2.add_permission(
             id = 'permissiongeoip2',
             account_id = '*',
-            organization_id = orgid.string_value
+            organization_id = organization.string_value
         )
 
     ### maxminddb LAYER ###
+
+        updatedmaxminddb = _ssm.StringParameter(
+            self, 'updatedmaxminddb',
+            parameter_name = '/updated/maxminddb',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
 
         maxminddbstatus = _ssm.StringParameter.from_string_parameter_attributes(
             self, 'maxminddbstatus',
@@ -305,10 +297,17 @@ class PackagesLayersUSE1(Stack):
         pkgmaxminddb.add_permission(
             id = 'permissionmaxminddb',
             account_id = '*',
-            organization_id = orgid.string_value
+            organization_id = organization.string_value
         )
 
     ### netaddr LAYER ###
+
+        updatednetaddr = _ssm.StringParameter(
+            self, 'updatednetaddr',
+            parameter_name = '/updated/netaddr',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
 
         netaddrstatus = _ssm.StringParameter.from_string_parameter_attributes(
             self, 'netaddrstatus',
@@ -347,10 +346,17 @@ class PackagesLayersUSE1(Stack):
         pkgnetaddr.add_permission(
             id = 'permissionnetaddr',
             account_id = '*',
-            organization_id = orgid.string_value
+            organization_id = organization.string_value
         )
 
     ### pip LAYER ###
+
+        updatedpip = _ssm.StringParameter(
+            self, 'updatedpip',
+            parameter_name = '/updated/pip',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
 
         pipstatus = _ssm.StringParameter.from_string_parameter_attributes(
             self, 'pipstatus',
@@ -387,6 +393,13 @@ class PackagesLayersUSE1(Stack):
         )
 
     ### requests LAYER ###
+
+        updatedrequests = _ssm.StringParameter(
+            self, 'updatedrequests',
+            parameter_name = '/updated/requests',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
 
         requestsstatus = _ssm.StringParameter.from_string_parameter_attributes(
             self, 'requestsstatus',
@@ -425,10 +438,17 @@ class PackagesLayersUSE1(Stack):
         pkgrequests.add_permission(
             id = 'permissionrequests',
             account_id = '*',
-            organization_id = orgid.string_value
+            organization_id = organization.string_value
         )
 
     ### smartopen LAYER ###
+
+        updatedsmartopen = _ssm.StringParameter(
+            self, 'updatedsmartopen',
+            parameter_name = '/updated/smartopen',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
 
         smartopenstatus = _ssm.StringParameter.from_string_parameter_attributes(
             self, 'smartopenstatus',
@@ -467,22 +487,24 @@ class PackagesLayersUSE1(Stack):
         pkgsmartopen.add_permission(
             id = 'permissionsmartopen',
             account_id = '*',
-            organization_id = orgid.string_value
+            organization_id = organization.string_value
         )
 
-    ### RAM ###
+    ### SHARED PARAMETERS ###
 
-        share = _ram.CfnResourceShare(
-            self, 'share',
-            name = 'packages',
+        sharedparameters = _ram.CfnResourceShare(
+            self, 'sharedparameters',
+            name = 'sharedparameters',
             allow_external_principals = False,
             permission_arns = [
                 'arn:aws:ram::aws:permission/AWSRAMDefaultPermissionSSMParameterReadOnly'
             ],
             principals = [
-                account
+                'arn:aws:organizations::'+account.string_value+':organization/'+organization.string_value
             ],
             resource_arns = [
+                organizationid.parameter_arn,
+                accountnumber.parameter_arn,
                 ssmbeautifulsoup4.parameter_arn,
                 ssmcensys.parameter_arn,
                 ssmdnspython.parameter_arn,

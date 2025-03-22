@@ -127,6 +127,6 @@ class PackagesStack(Stack):
             )
         )
 
-        #event.add_target(
-        #    _targets.LambdaFunction(download)
-        #)
+        event.add_target(
+            _targets.LambdaFunction(download)
+        )
