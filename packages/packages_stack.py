@@ -19,6 +19,27 @@ class PackagesStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
+    ### ODIC ###
+
+        provider = _iam.OpenIdConnectProvider(
+            self, 'provider',
+            url = 'https://token.actions.githubusercontent.com',
+            client_ids = [
+                'sts.amazonaws.com'
+            ]
+        )
+
+        github = _iam.Role(
+            self, 'github',
+            assumed_by = _iam.WebIdentityPrincipal(provider.open_id_connect_provider_arn).with_conditions(
+                {
+                    'StringLike': {
+                        'token.actions.githubusercontent.com:sub': 'repo:jblukach/packages:*'
+                    }
+                }
+            )            
+        )
+
     ### LAYER ###
 
         pkgpip = _ssm.StringParameter.from_string_parameter_attributes(
