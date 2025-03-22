@@ -19,6 +19,8 @@ class PackagesStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
+        account = Stack.of(self).account
+
     ### ODIC ###
 
         provider = _iam.OpenIdConnectProvider(
@@ -38,6 +40,19 @@ class PackagesStack(Stack):
                     }
                 }
             )            
+        )
+
+        github.add_to_policy(
+            _iam.PolicyStatement(
+                actions = [
+                    'sts:AssumeRole'
+                ],
+                resources = [
+                    'arn:aws:iam::'+str(account)+':role/cdk-4n6ir-deploy-role-'+str(account)+'-us-east-1'
+                    'arn:aws:iam::'+str(account)+':role/cdk-4n6ir-deploy-role-'+str(account)+'-us-east-2',
+                    'arn:aws:iam::'+str(account)+':role/cdk-4n6ir-deploy-role-'+str(account)+'-us-west-2'
+                ]
+            )
         )
 
     ### LAYER ###
