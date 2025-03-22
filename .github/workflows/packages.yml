@@ -9,6 +9,9 @@ jobs:
   deploy:
     runs-on:
       - codebuild-packages-${{ github.run_id }}-${{ github.run_attempt }}
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
