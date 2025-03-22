@@ -135,8 +135,8 @@ class PackagesStack(Stack):
                     'ssm:GetParameters'
                 ],
                 resources = [
-                    'arn:aws:ssm:us-east-1:'+str(account)+':parameter/cdk-bootstrap/4n6ir/version'
-                    'arn:aws:ssm:us-east-2:'+str(account)+':parameter/cdk-bootstrap/4n6ir/version'
+                    'arn:aws:ssm:us-east-1:'+str(account)+':parameter/cdk-bootstrap/4n6ir/version',
+                    'arn:aws:ssm:us-east-2:'+str(account)+':parameter/cdk-bootstrap/4n6ir/version',
                     'arn:aws:ssm:us-west-2:'+str(account)+':parameter/cdk-bootstrap/4n6ir/version'
                 ]
             )
