@@ -1,0 +1,10 @@
+name: packages
+on: [push]
+jobs:
+  packages-build:
+    runs-on:
+      - codebuild-packages-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - run: echo "Hello World"
+      - run: pwd
+      - run: ls -lh
