@@ -1,10 +1,11 @@
 name: packages
 on: [push]
 jobs:
-  packages-build:
+  deploy:
     runs-on:
       - codebuild-packages-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
-      - run: echo "Hello World"
+      - name: checkout repository
+        uses: actions/checkout@v4
       - run: pwd
       - run: ls -lh
