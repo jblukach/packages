@@ -244,8 +244,9 @@ class PackagesStack(Stack):
             schedule = _events.Schedule.cron(
                 minute = '0',
                 hour = '0',
-                month = '1',
-                week_day = '*',
+                day = '1',
+                #week_day = '*',
+                month = '*',
                 year = '*'
             )
         )
