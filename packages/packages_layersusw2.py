@@ -556,6 +556,7 @@ class PackagesLayersUSW2(Stack):
                 accountnumber.parameter_arn,
                 ssmbeautifulsoup4.parameter_arn,
                 ssmcensys.parameter_arn,
+                ssmdescope.parameter_arn,
                 ssmdnspython.parameter_arn,
                 ssmgeoip2.parameter_arn,
                 ssmmaxminddb.parameter_arn,
