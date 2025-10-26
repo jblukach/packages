@@ -12,6 +12,7 @@ def handler(event, context):
     packages = []
     packages.append('beautifulsoup4')
     packages.append('censys')
+    packages.append('descope')
     packages.append('dnspython')
     packages.append('geoip2')
     packages.append('maxminddb')

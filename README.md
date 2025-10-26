@@ -23,6 +23,7 @@
 ```
 arn:aws:ssm:us-east-1:070176467818:parameter/pkg/beautifulsoup4
 arn:aws:ssm:us-east-1:070176467818:parameter/pkg/censys
+arn:aws:ssm:us-east-1:070176467818:parameter/pkg/descope
 arn:aws:ssm:us-east-1:070176467818:parameter/pkg/dnspython
 arn:aws:ssm:us-east-1:070176467818:parameter/pkg/geoip2
 arn:aws:ssm:us-east-1:070176467818:parameter/pkg/maxminddb
@@ -36,6 +37,7 @@ arn:aws:ssm:us-east-1:070176467818:parameter/pkg/smartopen
 ```
 arn:aws:ssm:us-east-2:070176467818:parameter/pkg/beautifulsoup4
 arn:aws:ssm:us-east-2:070176467818:parameter/pkg/censys
+arn:aws:ssm:us-east-2:070176467818:parameter/pkg/descope
 arn:aws:ssm:us-east-2:070176467818:parameter/pkg/dnspython
 arn:aws:ssm:us-east-2:070176467818:parameter/pkg/geoip2
 arn:aws:ssm:us-east-2:070176467818:parameter/pkg/maxminddb
@@ -49,6 +51,7 @@ arn:aws:ssm:us-east-2:070176467818:parameter/pkg/smartopen
 ```
 arn:aws:ssm:us-west-2:070176467818:parameter/pkg/beautifulsoup4
 arn:aws:ssm:us-west-2:070176467818:parameter/pkg/censys
+arn:aws:ssm:us-west-2:070176467818:parameter/pkg/descope
 arn:aws:ssm:us-west-2:070176467818:parameter/pkg/dnspython
 arn:aws:ssm:us-west-2:070176467818:parameter/pkg/geoip2
 arn:aws:ssm:us-west-2:070176467818:parameter/pkg/maxminddb

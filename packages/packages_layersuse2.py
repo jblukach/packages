@@ -153,6 +153,55 @@ class PackagesLayersUSE2(Stack):
             organization_id = organization.string_value
         )
 
+    ### descope LAYER ###
+
+        updateddescope = _ssm.StringParameter(
+            self, 'updateddescope',
+            parameter_name = '/updated/descope',
+            string_value = 'EMPTY',
+            tier = _ssm.ParameterTier.STANDARD
+        )
+
+        descopestatus = _ssm.StringParameter.from_string_parameter_attributes(
+            self, 'descopestatus',
+            parameter_name = '/updated/descope'
+        )
+
+        pkgdescope = _lambda.LayerVersion(
+            self, 'pkgdescope',
+            layer_version_name = 'pkgdescope',
+            description = descopestatus.string_value,
+            code = _lambda.Code.from_bucket(
+                bucket = bucket,
+                key = 'descope.zip'
+            ),
+            compatible_architectures = [
+                _lambda.Architecture.ARM_64,
+                _lambda.Architecture.X86_64
+            ],
+            compatible_runtimes = [
+                _lambda.Runtime.PYTHON_3_9,
+                _lambda.Runtime.PYTHON_3_10,
+                _lambda.Runtime.PYTHON_3_11,
+                _lambda.Runtime.PYTHON_3_12,
+                _lambda.Runtime.PYTHON_3_13
+            ],
+            removal_policy = RemovalPolicy.DESTROY
+        )
+
+        ssmdescope = _ssm.StringParameter(
+            self, 'ssmdescope',
+            parameter_name = '/pkg/descope',
+            string_value = pkgdescope.layer_version_arn,
+            tier = _ssm.ParameterTier.ADVANCED
+        )
+
+        pkgdescope.add_permission(
+            id = 'permissiondescope',
+            account_id = '*',
+            organization_id = organization.string_value
+        )
+
     ### dnspython LAYER ###
 
         updateddnspython = _ssm.StringParameter(
